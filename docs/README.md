@@ -3,11 +3,31 @@
 
 <hr>
 
-# Introductie: Project Woonmonitor
+# 1. Introductie: Project Woonmonitor
 *Auteur: Marc Blomvliet - Aurai*</br>
 Dit project is ontstaan vanwege een rapportageverplichting vanuit het Programma Woningbouw voor periode 2022-2030. Het is noodzakelijk om de afdeling *'Ruimte'* van Gemeente Lochem te voorzien van inzichten in de omvang, samenstelling en benutting van de woningvoorraad in de Gemeente Lochem.
 
-# Databricks
+# 2. Vervolg stappen
+De woonmonitor is nu gebaseerd op statische data wat met behulp van **Azure Data Factory** geinjest wordt in het Datalakehouse van Lochem in **Databricks**.
+Voor de toekomst moeten deze Dashboards gebasseerd zijn op dynamische data, dus moeten de pipeline in ADF worden aangepast op bijvoorbeeld API's van de BAG, WOZ, BRP, etc..
+
+
+# 3. Overname Data Engineer/Data Analyst
+
+## Azure Datafactory (ADF)
+
+## CBS Data verversen
+Ook data vanuit het CBS is statisch, zie het volgende document om de link op te halen van de destbreffende dataset om hem opnieuw te downloaden in de blobstorage. 
+```
+├── lochemlakehouseblob
+    ├── stage-basisregistraties
+        ├── cbs_bronnen_URLs.txt
+       
+```
+
+LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
+
+## Databricks
 Databricks is in basis gebruikt als Datalakehouse. Echter is er ook voor gekozen om rechstreeks de visualisaties(Dashboards) voor de woonmonitor in Databricks te implementeren. Het is natuurlijk ook mogelijk om dit in de toekomst te migreren naar PowerBI of Tableau (*indien dit een wens mocht zijn*), dit werkt prima in combinate met Databricks. 
 
 Vanuit Azure Datafactory worden diverse notebooks in Databricks gebruikt in de pipelines, om vervolgens de databronnen te ingesten in het Datalakehouse van Gemeente Lochem.</br>
@@ -24,7 +44,7 @@ De schemas die in het Datalakehouse dan ontstaan:
 - ods_basisregistraties
 - ods_cbs
 
-# Databricks Dashboards - Overview
+## Databricks Dashboards - Overview
 
 <img src="assets/images/dashboards_databricks.png" width="90%" height="90%" style="margin:0px 115px"/>
 
@@ -40,9 +60,9 @@ Zie hieronder een preview van hoe een dashboard eruit ziet in Databricks (*Dashb
 <img src="assets/images/dashboard_verhuisstromen.png" width="90%" height="90%" style="margin:0px 115px"/>
 
 
-# DBT
+## DBT
 
-## Models en Views
+### Models en Views
 Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in totaal **38** view models:
 - **dwh_burgerzaken**
     - bevolkingsgroei
@@ -92,7 +112,7 @@ Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in t
     - woz_waarde
     - woz_waarde_distributie
 
-## Databricks connector
+### Databricks connector
 Alle DBT models staan in de GIT Repository *DWH-DBT* en vervolgens onder *models*.
 Het is ook mogelijk om ipv DBT, direct in Databricks SQL querys (ipv. views) klaar te zetten voor Dashboards.
 
@@ -131,9 +151,22 @@ Met als volgende er in:
       - token: **** 
       - threads: 1  
 
-Voor host en token, vraag naar Marc (Aurai), of indien er vragen zijn om dit te configureren.
+**Vind de host string**
+<img src="assets/images/host_databricks_profiles.png" width="90%" height="90%" style="margin:0px 115px"/>
+
+Zodra je op '*Starter Warehouse*' hebt geklikt, kies dan voor *Connection details*.
+De string voor host staat onder *Server hostname* en begint met **adb**.
+Vul deze nu in jouw profiles.yml
+
+**Maak een nieuwe token aan**
+<img src="assets/images/token_databricks.png" width="30%" height="30%" style="margin:0px 115px"/> 
+</br>
+
+Zodra je op jouw '*mailadres*' en vervolgens op '*User Settings*' hebt geklikt, kies dan voor '*Generate new token*'.
+En kopieer jouw token in de profiles.yml
+
+Indien er vragen zijn over het configureren van DBT icm. Databricks, vraag naar Marc (Aurai).
 Het kan namelijk complex zijn, echter is dit maar eenmalig nodig om dit te configureren op je device.
 
 
 
-# Azure Datafactory (ADF)
