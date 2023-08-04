@@ -177,7 +177,7 @@ Vul deze nu in jouw profiles.yml
 Zodra je op jouw '*emailadres/account*' en vervolgens op '*User Settings*' hebt geklikt, kies dan voor '*Generate new token*'.
 En kopieer jouw token in de profiles.yml
 
-Indien er vragen zijn over het configureren van DBT icm. Databricks, vraag naar Marc (Aurai) of Fokke (Aurai).
+Indien er vragen zijn over het configureren van DBT icm. Databricks, neem dan contact op met Aurai.
 Het kan namelijk complex zijn, echter is dit maar eenmalig nodig om dit te configureren op je device.
 
 
