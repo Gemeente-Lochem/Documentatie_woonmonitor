@@ -5,6 +5,7 @@
 
 # 1. Introductie: Project Woonmonitor
 *Auteur: Marc Blomvliet - Aurai*</br>
+Welkom!
 Dit project is ontstaan vanwege een rapportageverplichting vanuit het Programma Woningbouw voor periode 2022-2030. Het is noodzakelijk om de afdeling *'Ruimte'* van Gemeente Lochem te voorzien van inzichten in de omvang, samenstelling en benutting van de woningvoorraad in de Gemeente Lochem.
 
 # 2. Vervolg stappen
