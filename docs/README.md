@@ -168,14 +168,16 @@ Zodra je op '*Starter Warehouse*' hebt geklikt, kies dan voor *Connection detail
 De string voor host staat onder *Server hostname* en begint met **adb**.
 Vul deze nu in jouw profiles.yml
 
-**Maak een nieuwe token aan**
-<img src="assets/images/token_databricks.png" width="30%" height="30%" style="margin:0px 115px"/> 
-</br>
 
-Zodra je op jouw '*mailadres*' en vervolgens op '*User Settings*' hebt geklikt, kies dan voor '*Generate new token*'.
+**Maak een nieuwe token aan**
+</br>
+</br>
+<img src="assets/images/token_databricks.png" width="30%" height="30%" style="margin:0px 115px"/> 
+
+Zodra je op jouw '*emailadres/account*' en vervolgens op '*User Settings*' hebt geklikt, kies dan voor '*Generate new token*'.
 En kopieer jouw token in de profiles.yml
 
-Indien er vragen zijn over het configureren van DBT icm. Databricks, vraag naar Marc (Aurai).
+Indien er vragen zijn over het configureren van DBT icm. Databricks, vraag naar Marc (Aurai) of Fokke (Aurai).
 Het kan namelijk complex zijn, echter is dit maar eenmalig nodig om dit te configureren op je device.
 
 
