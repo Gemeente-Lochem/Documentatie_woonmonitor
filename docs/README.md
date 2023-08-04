@@ -8,16 +8,19 @@
 Dit project is ontstaan vanwege een rapportageverplichting vanuit het Programma Woningbouw voor periode 2022-2030. Het is noodzakelijk om de afdeling *'Ruimte'* van Gemeente Lochem te voorzien van inzichten in de omvang, samenstelling en benutting van de woningvoorraad in de Gemeente Lochem.
 
 # 2. Vervolg stappen
-De woonmonitor is nu gebaseerd op statische data wat met behulp van **Azure Data Factory** geinjest wordt in het Datalakehouse van Lochem in **Databricks**.
-Voor de toekomst moeten deze Dashboards gebasseerd zijn op dynamische data, dus moeten de pipeline in ADF worden aangepast op bijvoorbeeld API's van de BAG, WOZ, BRP, etc..
+De woonmonitor is nu gebaseerd op statische data wat met behulp van **Azure Data Factory** wordt in het Datalakehouse van Lochem in **Databricks** de ingestie uitgevoerd.
+Voor de toekomst moeten deze Dashboards gebasseerd zijn op dynamische data, dus moeten de pipelines in ADF worden ingericht op bijvoorbeeld API's van de BAG, WOZ, BRP, etc..
 
 
-# 3. Overname Data Engineer/Data Analyst
+# 3. Overdracht document - Data Engineer
 
 ## Azure Datafactory (ADF)
 
+<img src="assets/images/Architecture.png" width="70%" height="70%" style="margin:0px 115px"/>
+
+
 ## CBS Data verversen
-Ook data vanuit het CBS is statisch, zie het volgende document om de link op te halen van de destbreffende dataset om hem opnieuw te downloaden in de blobstorage. 
+Ook data vanuit het CBS is statisch, zie het volgende document om de link op te halen van de destbreffende datasets om ze opnieuw te downloaden in de blobstorage. 
 ```
 ├── lochemlakehouseblob
     ├── stage-basisregistraties
@@ -44,10 +47,15 @@ De schemas die in het Datalakehouse dan ontstaan:
 - ods_basisregistraties
 - ods_cbs
 
+## Databricks Start Warehouse
+Na 60 minuten van inactiviteit dan gaat de compute/warehouse op stop, om onnodige kosten te ontlopen.
+Om de dashboards weer te refreshen en of te gebruiken, dien je de Warehouse binnen Databricks opnieuw op te starten.
+Of om als Data Engineer Querys te kunnen schrijven binnen Databricks of DBT.
+Let op: Dit kan soms ~2 minuten duren.
+
+<img src="assets/images/start_Warehouse.png" width="90%" height="90%" style="margin:0px 115px"/>
+
 ## Databricks Dashboards - Overview
-
-<img src="assets/images/dashboards_databricks.png" width="90%" height="90%" style="margin:0px 115px"/>
-
 In Databricks zijn alle Dashboards te vinden van de *Woonmonitor Lochem*, de woonmonitor is onderverdeeld in **5** verschillende dashboards. In de afbeelding hierboven is de gebruikers interface te zien van Databricks, links in het paneel is het mogelijk om via de knop **Dashboards** alle dashboards te bekijken (Indien je geautoriseerd bent).
 
 - Huishoudens
@@ -55,6 +63,8 @@ In Databricks zijn alle Dashboards te vinden van de *Woonmonitor Lochem*, de woo
 - Duurzaamheid
 - Woningen
 - Inwoners
+
+<img src="assets/images/dashboards_databricks.png" width="90%" height="90%" style="margin:0px 115px"/>
 
 Zie hieronder een preview van hoe een dashboard eruit ziet in Databricks (*Dashboard: Verhuisstromen*):
 <img src="assets/images/dashboard_verhuisstromen.png" width="90%" height="90%" style="margin:0px 115px"/>
