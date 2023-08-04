@@ -47,7 +47,7 @@ De schemas die in het Datalakehouse dan ontstaan:
 - ods_basisregistraties
 - ods_cbs
 
-### Databricks Start de Warehouse
+### Databricks - Start de Warehouse
 Na 60 minuten van inactiviteit dan gaat de compute/warehouse op stop, om onnodige kosten te ontlopen.
 Om de dashboards weer te refreshen en of te gebruiken, dien je de Warehouse binnen Databricks opnieuw op te starten.
 Of om als Data Engineer Querys te kunnen schrijven binnen Databricks of DBT.
