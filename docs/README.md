@@ -20,12 +20,41 @@ Voor de toekomst moeten deze Dashboards gebasseerd zijn op **dynamische data**, 
 
 
 ## CBS Data verversen
-Ook data vanuit het CBS is statisch, zie het volgende document om de link op te halen van de destbreffende datasets om ze opnieuw te downloaden in de blobstorage. 
+Ook data vanuit het CBS is statisch, zie het volgende document om de link op te halen van de destbreffende datasets om ze opnieuw te downloaden in de blobstorage. (*cbs_bronnen_URLs.txt*) 
 ```
 ├── lochemlakehouseblob
     ├── stage-basisregistraties
         ├── cbs_bronnen_URLs.txt
        
+```
+
+Of hier de Inhoud *cbs_bronnen_URLs.txt*:
+```
+Bevolking__geslacht__leeftijd__regio_per_leeftijd.csv = 
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/03759ned/table?dl=92B17
+
+Bevolking__geslacht__leeftijd__regio.csv = 
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/03759ned/table?dl=92B40
+
+Bevolkingsontwikkeling__regio_per_maand.csv = 
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/37230ned/table?dl=92B1A
+Met maanden:
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/37230ned/table?dl=93BE1
+
+Verhuisde_personen_per_maand.csv = 
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/84547NED/table?dl=930C9
+
+Energieverbruik_particuliere_woningen =
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81528NED/table?dl=92E1F
+
+Zonnestroom__vermogen__bedrijf_won_regio.csv =
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/85005NED/table?dl=9340C
+
+Tussen_gemeenten_verhuisde_personen.csv =
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81734NED/table?dl=935D5
+
+Tussen_gemeenten_verhuisde_personen_vestiging_lochem.csv = 
+https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81734NED/table?dl=935D5
 ```
 
 LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
@@ -48,7 +77,7 @@ De schemas die in het Datalakehouse dan ontstaan:
 - ods_cbs
 
 ### Databricks - Start de Warehouse
-Na 60 minuten van inactiviteit dan gaat de compute/warehouse op stop, om onnodige kosten te ontlopen.
+Na 60 minuten van inactiviteit gaat de compute/warehouse op stop, om onnodige kosten te ontlopen.
 Om de dashboards weer te refreshen en of te gebruiken, dien je de Warehouse binnen Databricks opnieuw op te starten.
 Of om als Data Engineer Querys te kunnen schrijven binnen Databricks of DBT.
 Let op: Dit kan soms ~2 minuten duren.
@@ -56,7 +85,7 @@ Let op: Dit kan soms ~2 minuten duren.
 <img src="assets/images/start_Warehouse.png" width="90%" height="90%" style="margin:0px 115px"/>
 
 ### Databricks Dashboards - Overview
-In Databricks zijn alle Dashboards te vinden van de *Woonmonitor Lochem*, de woonmonitor is onderverdeeld in **5** verschillende dashboards. In de afbeelding hierboven is de gebruikers interface te zien van Databricks, links in het paneel is het mogelijk om via de knop **Dashboards** alle dashboards te bekijken (Indien je geautoriseerd bent).
+In Databricks zijn alle Dashboards te vinden van de *Woonmonitor Lochem*, de woonmonitor is onderverdeeld in **5** verschillende dashboards. In de afbeelding hieronder is de gebruikers interface te zien van Databricks, links in het paneel is het mogelijk om via de knop **Dashboards** alle dashboards te bekijken (Indien je geautoriseerd bent).
 
 - Huishoudens
 - Verhuisstroom
@@ -143,6 +172,7 @@ Install dbt core met databricks-connector:
 
 Verifieër:
 > dbt --version
+
 > dbt debug
 
 Zorg ervoor dat je in je lokale User root folder een .dbt folder hebt aangemaakt met daarin de file: 
