@@ -26,7 +26,6 @@ Ook data vanuit het CBS is statisch, zie het volgende document om de link op te 
 ├── lochemlakehouseblob
     ├── stage-basisregistraties
         ├── cbs_bronnen_URLs.txt
-       
 ```
 
 Of hier de Inhoud *cbs_bronnen_URLs.txt*:
