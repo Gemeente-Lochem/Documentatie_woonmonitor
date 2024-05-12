@@ -105,64 +105,48 @@ Zie hieronder een preview van hoe een dashboard eruit ziet in Databricks (*Dashb
 
 ## DBT
 
-### Models en Views
+### Models en DataMarts
 Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in totaal **22** models:
 - **dwh_burgerzaken**
     - bevolkingsgroei
-    - huishouden
-    - huishoudtypes
-    - inwoners
+    - bevolkingsopbouw
+    - brp
+    - geslachtsopbouw
+- **dwh_duurzaamheid**
+    - aardgas
+    - elektriciteit
+    - lochem_nederland
+    - opgesteld_vermogen_lochem
+    - opgesteld_vermogen
 - **dwh_ruimte**
     - bag_num_recent
     - verblijfsobjecten
     - woningen_lochem
     - woningtypes_huishoudtypes
     - woz
-
-> (Alle views die direct worden gebruikt in de dashboards *dash*)
-- **dwh_dash_duurzaamheid**
-    - aardgas
-    - elektriciteit
-    - lochem_en_nederland
-    - opgesteld_vermogen
-    - opgesteld_vermogen_lochem
-- **dwh_dash_huishoudens**
-    - huishoudtypes_per_woonplaats
-    - woningtype_en_huishoudtype
-- **dwh_dash_inwoners**
-    - aantal_inwoners
-    - aantal_woningen
-    - bevolkingsgroei_lochem
-    - bevolkingsgroei_per_jaar
-    - bevolkingsgroei_per_maand
-    - bevolkingsopbouw_brp
-    - bevolkingsopbouw_leeftijd_geslacht
-    - gemiddelde_leeftijd
-    - thuiswonende_jongeren
-    - totaal_inwoners_brp
-- **dwh_dash_verhuisstromen**
-    - gevestigd_2021
-    - gevestigd_2022
-    - verhuisd_2021
-    - verhuisd_2022
+- **dwh_verhuisstromen**
+    - gevestigd
     - verhuizingen
-- **dwh_dash_woningen**
-    - bouwtrend_5jaren
-    - oppervlakte
-    - woning_types
-    - woningen_per_woonplaats
-    - woningen_totaal
-    - woz_waarde
-    - woz_waarde_distributie
+    - vertrokken
+
+> Aantal Datamarts
+
+- **MARTS**
+    - huishouden
+    - huishoudtypes_per_woonplaats
+    - huishoudtypes
+    - woningen_lochem
+    - woningtypes_en_huishoudtypes
+
 
 ### Databricks connector
-Alle DBT models staan in de GIT Repository *DWH-DBT* en vervolgens onder *models*.
-Het is ook mogelijk om ipv DBT, direct in Databricks SQL querys (ipv. views) klaar te zetten voor Dashboards.
+Alle DBT models staan in de GIT Repository *DWH-DBT-PRODUCTIE* en vervolgens onder *models*.
+De repository *DWH-DBT* met de bijbehorende Databricks workspace *Lochem_Lakehouse*, zijn gebruikt destijds voor development.
+Het is ook mogelijk om ipv DBT, direct in Databricks SQL querys (ipv. views) klaar te zetten voor Dashboards uiteraard.
 
 <img src="assets/images/folder_structure_DBT_repo.png" width="90%" height="90%" style="margin:0px 115px"/>
 
-Om veranderingen aan te brengen in de views of om bijvoorbeeld nieuwe views of schemas te creëren, dien je de GIT repository
-lokaal te clonen om te kunnen bewerken. Daarnaast is het noodzakelijk om DBT-core te hebben en de connectie met Databricks te hebben (Databricks connector).
+Om veranderingen aan te brengen in de views of om bijvoorbeeld nieuwe views of schemas te creëren, dien je de lokaal aanpassingen door te voeren in de *main* branch van de GIT repository **DWH-DBT-PRODUCTIE**. Daarnaast is het noodzakelijk om DBT-core te hebben en de connectie met Databricks te hebben (Databricks connector).
 
 **Opzetten van DBT Core:** </br>
 Maak een virtual environment:
@@ -183,7 +167,7 @@ Zorg ervoor dat je in je lokale User root folder een .dbt folder hebt aangemaakt
 profiles.yml
 
 Met als volgende er in:
-- Lochem_DWH:
+- DWH:
   - target: dev
   - outputs:
     - dev:
@@ -191,7 +175,7 @@ Met als volgende er in:
       - catalog: hive_metastore
       - schema: dwh
       - host: ****
-      - http_path: /sql/1.0/warehouses/be7dfdd910e88b7d
+      - http_path: /sql/1.0/warehouses/1e0a32dc6d62a9dc
       - token: **** 
       - threads: 1  
 
