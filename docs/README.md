@@ -7,10 +7,12 @@
 *Auteur: Marc Blomvliet - Aurai*</br>
 Welkom!
 Dit project is ontstaan vanwege een rapportageverplichting vanuit het Programma Woningbouw voor periode 2022-2030. Het is noodzakelijk om de afdeling *'Ruimte'* van Gemeente Lochem te voorzien van inzichten in de omvang, samenstelling en benutting van de woningvoorraad in de Gemeente Lochem.
+Van Aurai hebben Fokke Dijkstra, Marc Blomvliet en Stefan Buhrmann aan dit project gewerkt.
+Alie Vreemann en Guido Quick zijn de opdrachtgevers/stakeholders vanuit Gemeente Lochem.
 
 # 2. Vervolg stappen
-De woonmonitor is nu gebaseerd op **statische data** wat met behulp van **Azure Data Factory** wordt in het Datalakehouse van Lochem in **Databricks** de ingestie uitgevoerd.
-Voor de toekomst moeten deze Dashboards gebasseerd zijn op **dynamische data**, dus moeten de pipelines in ADF worden ingericht op bijvoorbeeld API's van de BAG, WOZ, BRP, etc..
+De woonmonitor is nu gebaseerd op **statische data**. Met de inzet van **Azure Data Factory** wordt die data in het Datalakehouse van Lochem **Databricks** de ingestie uitgevoerd.
+Voor de toekomst moeten deze Dashboards gebasseerd zijn op **dynamische data**, dus moeten de pipelines in ADF worden ingericht op bijvoorbeeld API's/Databases van de BAG, WOZ, BRP, etc.. 
 
 
 # 3. Overdracht document - Data Engineer
@@ -25,7 +27,8 @@ Ook data vanuit het CBS is statisch, zie het volgende document om de link op te 
 ```
 ├── lochemlakehouseblob
     ├── stage-basisregistraties
-        ├── cbs_bronnen_URLs.txt
+        ├── CBS_2024
+            ├── cbs_bronnen_URLs.txt
 ```
 
 Of hier de Inhoud *cbs_bronnen_URLs.txt*:
@@ -60,12 +63,13 @@ https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81734NED/table?dl=935D5
 LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
 
 ## Databricks
-Databricks is in basis gebruikt als Datalakehouse. Echter is er ook voor gekozen om rechstreeks de visualisaties(Dashboards) voor de woonmonitor in Databricks te implementeren. Het is natuurlijk ook mogelijk om dit in de toekomst te migreren naar PowerBI of Tableau (*indien dit een wens mocht zijn*), dit werkt prima in combinate met Databricks. 
+Databricks is in basis gebruikt als Datalakehouse. Echter is er ook voor gekozen om rechstreeks de visualisaties(Dashboards) voor de woonmonitor in Databricks te implementeren. In 2023 werdt dit gedaan met de eerste versie van Databricks dashboards (Legacy). In 2024 is er overgestapt naar de nieuwste versie 'Lakeview' van Databricks.
+Het is natuurlijk ook mogelijk om dit in de toekomst te migreren naar PowerBI of Tableau (*indien dit een wens mocht zijn*), dit werkt prima in combinate met Databricks. 
 
 Vanuit Azure Datafactory worden diverse notebooks in Databricks gebruikt in de pipelines, om vervolgens de databronnen te ingesten in het Datalakehouse van Gemeente Lochem.</br>
-Deze notebooks zijn te vinden in Databricks onder *Workspace* -> *Repos* -> *dwh-processing* -> *Ingestie*.
+Deze notebooks zijn te vinden in de Productie Databricks workspace **lochemdatalakehouse**. Onder *Workspace* -> *Shared* -> *dwh-processing* -> *Ingestie*.
 
-Voorbeelden van databronnen die worden opgenomen:
+Alle databronnen die worden opgenomen:
 - BRP
 - BAG
 - WOZ
@@ -79,7 +83,7 @@ De schemas die in het Datalakehouse dan ontstaan:
 ### Databricks - Start de Warehouse
 Na 60 minuten van inactiviteit gaat de compute/warehouse op stop, om onnodige kosten te ontlopen.
 Om de dashboards weer te refreshen en of te gebruiken, dien je de Warehouse binnen Databricks opnieuw op te starten.
-Of om als Data Engineer Querys te kunnen schrijven binnen Databricks of DBT.
+Of om als Data Engineer Querys te kunnen schrijven binnen Databricks of nieuwe DBT models te executen.
 Let op: Dit kan soms ~2 minuten duren.
 
 <img src="assets/images/start_Warehouse.png" width="90%" height="90%" style="margin:0px 115px"/>
@@ -102,7 +106,7 @@ Zie hieronder een preview van hoe een dashboard eruit ziet in Databricks (*Dashb
 ## DBT
 
 ### Models en Views
-Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in totaal **38** view models:
+Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in totaal **22** models:
 - **dwh_burgerzaken**
     - bevolkingsgroei
     - huishouden
