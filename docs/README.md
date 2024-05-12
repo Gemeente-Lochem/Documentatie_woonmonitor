@@ -4,10 +4,12 @@
 <hr>
 
 # 1. Introductie: Project Woonmonitor
-*Auteur: Marc Blomvliet - Aurai*</br>
+*Auteur: Marc - Aurai*</br>
 Welkom!
 Dit project is ontstaan vanwege een rapportageverplichting vanuit het Programma Woningbouw voor periode 2022-2030. Het is noodzakelijk om de afdeling *'Ruimte'* van Gemeente Lochem te voorzien van inzichten in de omvang, samenstelling en benutting van de woningvoorraad in de Gemeente Lochem.
-Van Aurai hebben Fokke Dijkstra, Marc Blomvliet en Stefan Buhrmann aan dit project gewerkt.
+
+*Personen die betrokken zijn geweest:* </br> 
+Via Aurai hebben Fokke Dijkstra, Marc Blomvliet en Stefan Buhrmann aan dit project gewerkt.
 Alie Vreemann en Guido Quick zijn de opdrachtgevers/stakeholders vanuit Gemeente Lochem.
 
 # 2. Vervolg stappen
@@ -15,7 +17,7 @@ De woonmonitor is nu gebaseerd op **statische data**. Met de inzet van **Azure D
 Voor de toekomst moeten deze Dashboards gebasseerd zijn op **dynamische data**, dus moeten de pipelines in ADF worden ingericht op bijvoorbeeld API's/Databases van de BAG, WOZ, BRP, etc.. 
 
 
-# 3. Overdracht document - Data Engineer
+# 3. Overdrachtsdocument - Data Engineer
 
 ## Azure Datafactory (ADF)
 
@@ -62,6 +64,40 @@ https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81734NED/table?dl=935D5
 
 LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
 
+<img src="assets/images/cbs_pipelines_adf.png" width="70%" height="70%" style="margin:0px 115px"/>
+Zorg ervoor dat de *.csv* in de container *stage-basisregistraties* terecht komen. Het is mogelijk om bijvoorbeeld een nieuwe folder aan te maken: **CBS_2025**. Zorg ervoor dat in de 3 pipelines hierboven de notebooks dan ook worden aangepast en kijken naar de folder **CBS_2025** in plaats van CBS_2024 tijdens het ingesten van de data.
+
+## BAG Data verversen
+Binnen de main pipline **Ingestie-Basisregistraties** is er een het volgende stukje aan activiteiten voor de BAG:
+<img src="assets/images/BAG_ingestion/ingestie_BAG.png" width="70%" height="70%" style="margin:0px 115px"/>
+
+Waarbij de eerste activiteit een pipeline activity is, die het ZIP-bestand unzipped binnen de container **ods-basisregistraties**. De BAG wordt dus aangeleverd als ZIP. Zie hieronder hoe die pipeline in elkaar steekt, of zie ADF *staging_BAG_ods* pipeline.
+
+<img src="assets/images/BAG_ingestion/STAGING_BAG_ODS.png" width="70%" height="70%" style="margin:0px 115px"/>
+
+In de Databricks notebook, wordt de ingestion van de data in het datalakehouse verzorgt.
+
+## BRP Data verversen
+Binnen de main pipline **Ingestie-Basisregistraties** is er een het volgende stukje aan activiteiten voor de BRP:
+<img src="assets/images/BRP_ingestion/ingestie_BRP.png" width="40%" height="40%" style="margin:0px 115px"/>
+
+Er is enkel een Databricks notebook activity, waarbij het aangeleverde *csv* bestand verwacht wordt in de container *stage-basisregistraties* onder de folder *BRP*, met een geparameteriseerde filename met als default value **BRP_14_07_2023**.
+De folder *BRP* en de bijhorende filename zal nu niet bestaan/aanwezig zijn, omdat we uit veiligheid geen statisch *csv* bestand in het storageaccount willen behouden. Dus na de ingestion wordt die verwijderd.
+
+## WOZ Data verversen
+
+
+## BRK Data verversen
+Binnen de main pipline **Ingestie-Basisregistraties** is er een het volgende stukje aan activiteiten voor de BRK:
+<img src="assets/images/BRK_ingestion/ingestie_BRK.png" width="70%" height="70%" style="margin:0px 115px"/>
+
+Waarbij de eerste activiteit een pipeline activity is, die het ZIP-bestand unzipped binnen de container **ods-basisregistraties**. De BRK wordt dus aangeleverd als ZIP. Zie hieronder hoe die pipeline in elkaar steekt, of zie ADF *staging_BRK_ods* pipeline.
+
+<img src="assets/images/BRK_ingestion/STAGING_BRK_ODS.png" width="70%" height="70%" style="margin:0px 115px"/>
+
+In de Databricks notebook, wordt de ingestion van de data in het datalakehouse verzorgt.
+
+
 ## Databricks
 Databricks is in basis gebruikt als Datalakehouse. Echter is er ook voor gekozen om rechstreeks de visualisaties(Dashboards) voor de woonmonitor in Databricks te implementeren. In 2023 werdt dit gedaan met de eerste versie van Databricks dashboards (Legacy). In 2024 is er overgestapt naar de nieuwste versie 'Lakeview' van Databricks.
 Het is natuurlijk ook mogelijk om dit in de toekomst te migreren naar PowerBI of Tableau (*indien dit een wens mocht zijn*), dit werkt prima in combinate met Databricks. 
@@ -105,7 +141,7 @@ Zie hieronder een preview van hoe een dashboard eruit ziet in Databricks (*Dashb
 
 ## DBT
 
-### Models en DataMarts
+### Models en Datamarts
 Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in totaal **22** models:
 - **dwh_burgerzaken**
     - bevolkingsgroei
