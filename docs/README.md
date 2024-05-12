@@ -85,6 +85,10 @@ Er is enkel een Databricks notebook activity, waarbij het aangeleverde *csv* bes
 De folder *BRP* en de bijhorende filename zal nu niet bestaan/aanwezig zijn, omdat we uit veiligheid geen statisch *csv* bestand in het storageaccount willen behouden. Dus na de ingestion wordt die verwijderd.
 
 ## WOZ Data verversen
+Binnen de main pipline **Ingestie-Basisregistraties** is er een het volgende stukje aan activiteiten voor de WOZ:
+<img src="assets/images/WOZ_ingestion/ingestie_WOZ.png" width="40%" height="40%" style="margin:0px 115px"/>
+
+Er is enkel een Databricks notebook activity, waarbij het aangeleverde *csv* bestand verwacht wordt in de container *stage-basisregistraties* onder de folder *WOZ*, met een geparameteriseerde filename met als default value **20230714_export_WOZ**.
 
 
 ## BRK Data verversen
@@ -230,6 +234,14 @@ Vul deze nu in jouw profiles.yml
 
 Zodra je op jouw '*emailadres/account*' en vervolgens op '*User Settings*' hebt geklikt, kies dan voor '*Generate new token*'.
 En kopieer jouw token in de profiles.yml
+
+Indien er een nieuwe data ingestion heeft plaats gevonden in *ods_basisregistraties* of *ods_cbs* in het datalakehouse. En je de DBT models wilt verversen en daarmee de DWH tables wilt verversen. Dan moeten de DBT models opnieuw worden uitgevoerd.
+Dit doe je als volgt:
+ - Zorg ervoor dat je in je commandprompt in de Repository **DWH-DBT-PRODUCTIE**. In de folder DWH zit.
+ - > dbt run
+
+<img src="assets/images/dbt_run.png" width="70%" height="70%" style="margin:0px 115px"/>
+
 
 Indien er vragen zijn over het configureren van DBT icm. Databricks, neem dan contact op met Aurai.
 Het kan namelijk complex zijn, echter is dit maar eenmalig nodig om dit te configureren op je device.
