@@ -62,13 +62,14 @@ Tussen_gemeenten_verhuisde_personen_vestiging_lochem.csv =
 https://opendata.cbs.nl/statline/#/CBS/nl/dataset/81734NED/table?dl=935D5
 ```
 
-LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
+> LET OP: Wees zorgvuldig met de naamgeving, en behoud dus ten alle tijde dezelfde namen na het opnieuw downloaden van de (*.csv*) CBS datasets.
 
-De gehele (Landelijke) dataset voor Wijken, buurten, postcode en gemeenten. Kun je hier vinden:
+De gehele (Landelijke) dataset voor Wijken, buurten, postcode en gemeenten. Kun je hier vinden: </br>
 https://www.cbs.nl/nl-nl/maatwerk/2023/35/buurt-wijk-en-gemeente-2023-voor-postcode-huisnummer
 
 
 <img src="assets/images/cbs_pipelines_adf.png" width="70%" height="70%" style="margin:0px 115px"/>
+
 Zorg ervoor dat de *.csv* in de container *stage-basisregistraties* terecht komen. Het is mogelijk om bijvoorbeeld een nieuwe folder aan te maken: **CBS_2025**. Zorg ervoor dat in de 3 pipelines hierboven de notebooks dan ook worden aangepast en kijken naar de folder **CBS_2025** in plaats van CBS_2024 tijdens het ingesten van de data.
 
 ## BAG Data verversen
@@ -173,7 +174,7 @@ Voor nu bestaan er **7** schemas: **dwh_burgerzaken** en **dwh_ruimte**. En in t
     - verhuizingen
     - vertrokken
 
-> Aantal Datamarts
+> Datamarts
 
 - **MARTS**
     - huishouden
